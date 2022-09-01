@@ -15,7 +15,7 @@
 年代別に本を紹介したり、今読んでおくべき本が検索できる。
 
 ## 設計書
-E(https://app.diagrams.net/#G1GJfCDdaUCAXCJ1VxPiMnPckUwCQxA0Fc)
+(https://app.diagrams.net/#G1GJfCDdaUCAXCJ1VxPiMnPckUwCQxA0Fc)
 
 ## 開発環境
 - OS：Linux(CentOS)
