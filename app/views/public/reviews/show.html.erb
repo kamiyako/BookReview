@@ -1,0 +1,10 @@
+<h1>新規レビュー詳細</h1>
+
+<h2>タイトル</h2>
+<p><%= @review.title %></p>
+
+<h2>本文</h2>
+<p><%= @review.body %></p>
+
+<%= link_to "編集", edit_review_path(@review.id) %>
+<%= link_to "削除", review_path(@review.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
