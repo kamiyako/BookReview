@@ -1,10 +1,19 @@
-<h1>新規レビュー詳細</h1>
+<h1>新規レビュー投稿</h1>
+  <%= image_tag @book.image_url %>
+  <%= @book.title %>
+  <%= @book.author %>
+  <%= @book.item_caption %>
 
-<h2>タイトル</h2>
-<p><%= @review.title %></p>
+<!--レビューフォーム-->
+<%= form_with url: new_public_book_review_path(@book, @review) do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :body %>
+  <%= f.submit "レビューする" %>
+<% end %>
 
-<h2>本文</h2>
-<p><%= @review.body %></p>
-
-<%= link_to "編集", edit_review_path(@review.id) %>
-<%= link_to "削除", review_path(@review.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<!--レビュー一覧-->
+<% @reviews.each do |review| %>
+  <%= review.user.name %>
+  <%= review.title %>
+  <%= review.body %>
+<% end %>

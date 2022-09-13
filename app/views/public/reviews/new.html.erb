@@ -1,13 +1,19 @@
 <h1>新規レビュー投稿</h1>
+  <%= image_tag @book.image_url %>
+  <%= @book.title %>
+  <%= @book.author %>
+  <%= @book.item_caption %>
 
-<%= form_with model: @review, url: '/public/review/index', method: :post do |f| %>
-
-  <h4>タイトル</h4>
+<!--レビューフォーム-->
+<%= form_with url: new_public_book_review_path(@book, @review) do |f| %>
   <%= f.text_field :title %>
-  
-  <h4>本文</h4>
   <%= f.text_area :body %>
-  
-  <%= f.submit '投稿' %>
-  
+  <%= f.submit "レビューする" %>
+<% end %>
+
+<!--レビュー一覧-->
+<% @reviews.each do |review| %>
+  <%= review.user.name %>
+  <%= review.title %>
+  <%= review.body %>
 <% end %>

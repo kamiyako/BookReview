@@ -65,3 +65,5 @@ gem "net-pop"
 gem "net-imap"
 
 gem 'devise'
+# 楽天API
+gem 'rakuten_web_service'

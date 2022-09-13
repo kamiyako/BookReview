@@ -1,0 +1,11 @@
+検索結果一覧
+<% if @books %>
+  <% @books.each do |book| %>
+  <%= link_to  new_public_book_review_path(book) do %>
+    <%= image_tag book.image_url %>
+  <% end %>
+    <%= book.title %>
+    <%= book.author %>
+    <%= book.item_caption %>
+  <% end %>
+<% end %>
