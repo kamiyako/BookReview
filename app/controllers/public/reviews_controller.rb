@@ -5,7 +5,7 @@ class Public::ReviewsController < ApplicationController
   end
 
   def create
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
     @review = current_user.reviews.new(review_params)
     @review.user_id = current_user.id
     if @review.save
@@ -18,7 +18,7 @@ class Public::ReviewsController < ApplicationController
   end
 
   def show
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
     @review = Review.new
     @reviews = @book.reviews
   end
@@ -26,7 +26,7 @@ class Public::ReviewsController < ApplicationController
   def new
     @book = Book.find(params[:book_id])
     @review = Review.new
-    @reviews = @book.reviews
+    @reviews = @book.reviews.all
   end
 
   def edit
@@ -34,14 +34,14 @@ class Public::ReviewsController < ApplicationController
   end
 
   def update
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
     review = Review.find(params[:id])
     review.update(review_params)
     redirect_to public_review_path(@book.id), notice: 'レビューを更新しました'
   end
 
   def destroy
-    @book = Book.find(params[:id])
+    @book = Book.find(params[:book_id])
     @review = Review.find(params[:id])
     @review.destroy
     redirect_to request.referer

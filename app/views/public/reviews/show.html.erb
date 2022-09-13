@@ -4,13 +4,6 @@
   <%= @book.author %>
   <%= @book.item_caption %>
 
-<!--レビューフォーム-->
-<%= form_with url: new_public_book_review_path(@book, @review) do |f| %>
-  <%= f.text_field :title %>
-  <%= f.text_area :body %>
-  <%= f.submit "レビューする" %>
-<% end %>
-
 <!--レビュー一覧-->
 <% @reviews.each do |review| %>
   <%= review.user.name %>
