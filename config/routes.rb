@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
-
+  # ゲストログイン用
+  post 'public/homes/guest_sign_in', to: 'public/homes#guest_sign_in'
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
   get 'books/search', to: "public/books#search"

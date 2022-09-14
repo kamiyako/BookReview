@@ -1,5 +1,22 @@
 class Public::BooksController < ApplicationController
+
+  def new
+    # @book = Book.find(params[:book_id])
+    @book = Book.new
+  end
   
+  def create
+    # １.&2. データを受け取り新規登録するためのインスタンス作成
+    book = Book.new(book_params)
+    # 3. データをデータベースに保存するためのsaveメソッド実行
+    book.save
+    # 4. トップ画面へリダイレクト
+    redirect_to public_book_path(@book)
+  end
+  
+  def show
+  end
+
   # /books/search
   def search
     #ここで空の配列を作ります
@@ -44,5 +61,10 @@ class Public::BooksController < ApplicationController
       item_caption: item_caption
     }
   end
+  
+  def book_params
+    params.require(:book).permit(:book_id)
+  end
+  
   
 end

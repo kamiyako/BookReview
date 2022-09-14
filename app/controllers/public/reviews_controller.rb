@@ -1,12 +1,13 @@
 class Public::ReviewsController < ApplicationController
 
   def index
+    @book = Book.find(params[:book_id])
     @reviews = Review.all
   end
 
   def create
-    @book = Book.find(params[:book_id])
-    @review = current_user.reviews.new(review_params)
+    book = Book.find(params[:book_id])
+    @review = book.review.new(review_params)
     @review.user_id = current_user.id
     if @review.save
       redirect_to request.referer

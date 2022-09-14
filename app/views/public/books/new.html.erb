@@ -1,0 +1,10 @@
+<h1>本の詳細</h1>
+<!--<= image_tag @book.image_url %>-->
+<!--<= @book.title %>-->
+<!--<= @book.author %>-->
+<!--<= @book.item_caption %>-->
+
+<%= form_with model: @booknew, url: public_books_path, method: :post do |f| %>
+  <%= f.hidden_field :book_id %>
+  <%= f.submit 'この本でレビューする' %>
+<% end %>
