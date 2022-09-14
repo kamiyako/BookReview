@@ -5,6 +5,6 @@
 <!--<= @book.item_caption %>-->
 
 <%= form_with model: @booknew, url: public_books_path, method: :post do |f| %>
-  <%= f.hidden_field :book_id %>
+  <%= f.hidden_field "isbn" %>
   <%= f.submit 'この本でレビューする' %>
 <% end %>

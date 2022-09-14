@@ -1,33 +1,19 @@
 class Public::ReviewsController < ApplicationController
 
-  def index
-    @book = Book.find(params[:book_id])
-    @reviews = Review.all
-  end
-
   def create
-    book = Book.find(params[:book_id])
-    @review = book.review.new(review_params)
-    @review.user_id = current_user.id
+    @review = current_user.reviews.new(review_params)
     if @review.save
-      redirect_to request.referer
+      #コメント送信後は、一つ前のページへリダイレクトさせる。
+      redirect_back(fallback_location: root_path)
     else
-      @book_new = Book.new
-      @reviews = @book.reviews
-      redirect_to new_public_book_review_path
+      redirect_back(fallback_location: root_path)
     end
-  end
-
-  def show
-    @book = Book.find(params[:book_id])
-    @review = Review.new
-    @reviews = @book.reviews
   end
 
   def new
     @book = Book.find(params[:book_id])
-    @review = Review.new
-    @reviews = @book.reviews.all
+    @reviews = @book.reviews
+    @review = current_user.reviews.new
   end
 
   def edit
