@@ -17,6 +17,10 @@ Rails.application.routes.draw do
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
   get 'books/search', to: "public/books#search"
+  
+  resources :tags do
+    get 'reviews', to: 'public/reviews#search'
+  end
 
   namespace :admin do
     root to: "homes#top"

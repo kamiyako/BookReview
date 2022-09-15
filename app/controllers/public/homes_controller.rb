@@ -10,6 +10,10 @@ class Public::HomesController < ApplicationController
   end
 
   def top
+    # レビューのある本のみ表示させる
+    @books = Book.select do |book|
+      book.reviews.count > 0
+    end
   end
 
   def about

@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_020226) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "reviews", id: false, force: :cascade do |t|
+  create_table "reviews", force: :cascade do |t|
     t.float "star", default: 0.0, null: false
     t.string "title"
     t.string "body"
@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_020226) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "name"
+    t.string "tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

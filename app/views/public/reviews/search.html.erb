@@ -1,0 +1,11 @@
+<h3>タグリスト</h3>
+<% @tag_list.each do |list| %>
+  <%= list.tag_name %>
+  <%= "(#{list.reviews.count})" %>
+<% end %>
+<br>
+<%= "#{@tag.tag_name}" %>
+<br>
+<% @reviews.each do |review| %>
+  <%= link_to review.content, review %>
+<% end %>

@@ -15,7 +15,9 @@
   <%= f.text_field :title %>
   <%= f.text_area :body %>
   <%= f.hidden_field :book_id, :value => @book.id %>
-
+  <!--タグ付け-->
+  <p>どの世代におすすめですか？（スペースキーで複数タグを付けられます）</p>
+  <%= f.text_field :tag_name, placeholder: "10代 20代 30代" %>
   <!--星レビュー-->
   <div id="star">
     <label>評価</label>
@@ -51,6 +53,13 @@
         <td><%= review.body %></td>
         <td><%= review.star %>点</td>
         <td class="review-star" data-score="<%= review.star %>"></td>
+        <td>
+          <!--タグ-->
+        <% review.tags.each do |tag| %>
+          #<%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
+          <%= "(#{tag.reviews.count})" %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
