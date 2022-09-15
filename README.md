@@ -32,3 +32,4 @@
 - fontawesome
 - 楽天api
 - Hatchfulのロゴメーカー
+- jquery

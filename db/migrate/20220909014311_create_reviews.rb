@@ -1,8 +1,8 @@
 class CreateReviews < ActiveRecord::Migration[6.1]
   def change
     create_table :reviews, id: false do |t|#id: falseで自動で主キーをIDにする設定を解除
-      
-      t.integer :star
+      # 星レビュー（細かい評価ができるfloat型）
+      t.float :star, null: false, default: 0
       t.string :title
       t.string :body
       # 既存のテーブルを指定

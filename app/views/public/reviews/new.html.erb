@@ -10,17 +10,57 @@
   </ul>
 </div>
 
-<!--レビューフォーム-->
+<!--レビューコメントフォーム-->
 <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews" do |f| %>
   <%= f.text_field :title %>
   <%= f.text_area :body %>
   <%= f.hidden_field :book_id, :value => @book.id %>
-  <%= f.submit "レビューする" %>
-<% end %>
 
-<!--レビュー一覧-->
-<% @book.reviews.each do |review| %>
-  <%= review.user.name %>
-  <%= review.title %>
-  <%= review.body %>
-<% end %>
+  <!--星レビュー-->
+  <div id="star">
+    <label>評価</label>
+  </div>
+  <div class="actions">
+    <%= f.submit "レビューする" %>
+  </div>
+  <script>
+    $('#star').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      scoreName: 'review[star]' // Reviewモデルのstarカラムに値を保存する
+    });
+  </script>
+  <% end %>
+
+<h1>レビュー一覧</h1>
+<table>
+  <thead>
+    <tr>
+      <th>名前</th>
+      <th>タイトル</th>
+      <th>内容</th>
+      <th>評価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @book.reviews.each do |review| %>
+      <tr>
+        <td><%= review.user.name %></td>
+        <td><%= review.title %></td>
+        <td><%= review.body %></td>
+        <td><%= review.star %>点</td>
+        <td class="review-star" data-score="<%= review.star %>"></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $('.review-star').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
