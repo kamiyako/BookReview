@@ -1,7 +1,10 @@
 class Public::BooksController < ApplicationController
 
   def index
-    @reviews = Review.all
+    # レビューのある本のみ表示させる
+    @books = Book.select do |book|
+      book.reviews.count > 0
+    end
   end
 
   # /books/search

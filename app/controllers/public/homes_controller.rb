@@ -6,14 +6,11 @@ class Public::HomesController < ApplicationController
       user.name = "ゲスト"
     end
     sign_in user
-    redirect_to root_path, notice: 'ゲストユーザーとしてログインしました。'
+    redirect_to public_books_path, notice: 'ゲストユーザーとしてログインしました。'
   end
 
   def top
-    # レビューのある本のみ表示させる
-    @books = Book.select do |book|
-      book.reviews.count > 0
-    end
+
   end
 
   def about

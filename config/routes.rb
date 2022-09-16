@@ -17,15 +17,15 @@ Rails.application.routes.draw do
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
   get 'books/search', to: "public/books#search"
-  
+
   resources :tags do
     get 'reviews', to: 'public/reviews#search'
   end
 
   namespace :admin do
-    root to: "homes#top"
+    root to: "users#index"
+    resources :users
     resources :reviews
-    resources :genres
   end
 
   namespace :public do

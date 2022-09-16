@@ -1,0 +1,5 @@
+<!--ユーザー一覧-->
+<% @users.each do |user| %>
+  <%= link_to user.name,admin_user_path(user.id) %>
+  <%= user.mail %>
+<% end %>

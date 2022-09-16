@@ -1,13 +1,17 @@
-<h1>ブックレビュー投稿一覧</h1>
-<% @reviews.each do |review| %>
-<div class="card" style="width: 18rem;">
-  <%= image_tag review.book.image_url,class: "card-img-top" %>
-  <!--<div class="card-body">-->
-  <!--  <h5 class="card-title"><= review.title %></h5>-->
-  <!--  <p class="card-text"><= review.body %></p>-->
-  <!--</div>-->
-  <!--<ul class="list-group list-group-flush">-->
-  <!--  <li class="list-group-item"><= review.user.name %></li>-->
-  <!--</ul>-->
-</div>
-<% end %>
+<!--年代別ジャンル-->
+<nav class="navbar bg-light">
+<form class="container-fluid justify-content-center">
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">10代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">20代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">30代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">40代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">50代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">40代</button>
+</form>
+</nav>
+<h1>レビューブック一覧</h1>
+<% @books.each do |book| %>
+  <%= link_to new_public_book_review_path(book) do %>
+    <%= image_tag book.image_url %>
+  <% end %>
+<%end%>

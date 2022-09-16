@@ -1,0 +1,8 @@
+<!--１ユーザーのレビュー一覧-->
+<% @reviews.each do |review| %>
+  <%= review.book.title %>
+  <%= review.user.name %>
+  <%= review.title %>
+  <%= review.body %>
+  <%= link_to "Destroy", url: "/admin/users/#{review.id}", method: :delete, "data-confirm" => "本当に削除しますか？" %>
+<% end %>
