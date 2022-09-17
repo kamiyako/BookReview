@@ -48,7 +48,7 @@
   <tbody>
     <% @book.reviews.each do |review| %>
       <tr>
-        <td><%= review.user.name %></td>
+        <td><%= link_to review.user.name,public_user_path(review.user_id) %></td>
         <td><%= review.title %></td>
         <td><%= review.body %></td>
         <td><%= review.star %>点</td>

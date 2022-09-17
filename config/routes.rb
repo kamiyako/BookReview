@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
   # ユーザー用
   # URL /users/sign_in
   devise_for :users,skip: [:passwords], controllers: {
@@ -29,7 +33,11 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
-    resources :users
+    resources :users do
+      resource :relationships, only: [:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
+  end
     resources :books do
       resources :reviews
     end

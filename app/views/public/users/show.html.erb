@@ -1,16 +1,15 @@
 <!-- ユーザー詳細 -->
-
 <h2>User info</h2>
 <table class="table">
   <tbody>
     <tr><th>name</th><th><%= @user.name %></th></tr>
     <tr><td>フォロー数:
-    <%= link_to user_followings_path(@user) do %>
+    <%= link_to public_user_followings_path(@user) do %>
       <%= @user.followings.count %>
     <% end %>
     </td><td></td></tr>
     <tr><td>フォロワー数:
-    <%= link_to user_followers_path(@user) do %>
+    <%= link_to public_user_followers_path(@user) do %>
       <%= @user.followers.count %>
     <% end %>
     </td><td></td></tr>
@@ -18,11 +17,49 @@
 </table>
 <%if current_user != @user %>
     <% if current_user.following?(@user) %>
-      <%= link_to 'フォロー外す', user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
+      <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
     <% else %>
-      <%= link_to 'フォローする', user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
+      <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
     <% end %>
 <% end %>
-  <%= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>
-    <i class=" fas fa-user-cog"></i>
-  <% end %>
+  <!--<= link_to edit_user_path(@user.id), class:"btn btn-outline-secondary btn-block" do %>-->
+  <!--  <i class=" fas fa-user-cog"></i>-->
+  <!--< end %>-->
+     <!--ここから-->
+<!--<div class="col-md-8 offset-md-1">-->
+  <h1>レビューブック一覧</h1>
+<!--    <table class="table table-hover table-inverse">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th></th>-->
+<!--          <th>title</th>-->
+<!--          <th>opinion</th>-->
+<!--          <th colspan="3"></th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+
+
+
+
+<!--      <% @reviews.each do |review| %>-->
+<!--      <tbody>-->
+<!--        <tr>-->
+<!--          <th>-->
+                <%= link_to new_public_book_review_path(review) do %>
+                  <%= image_tag review.book.image_url %>
+                <% end %>
+              <%end%>
+<!--          </th>-->
+<!--          <td><= link_to book.title, book_path(book.id) %></td>-->
+<!--          <td><= book.body %></td>-->
+          <!--いいね-->
+<!--          <td id="book_<= book.id %>">-->
+<!--          <= render 'books/like', book: book %>-->
+<!--          </td>-->
+<!--          <td><= link_to "#{book.book_comments.count} comment", book_path(book.id) %></td>-->
+<!--        </tr>-->
+<!--        < end %>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--</div>-->

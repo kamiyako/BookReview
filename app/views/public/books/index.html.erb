@@ -1,17 +1,18 @@
 <!--年代別ジャンル-->
+<% @tag_list.each do |tag| %>
 <nav class="navbar bg-light">
 <form class="container-fluid justify-content-center">
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">10代</button>
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">20代</button>
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">30代</button>
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">40代</button>
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">50代</button>
-  <button type="button" class="btn-outline-secondary btn-lg mr-1">40代</button>
+  <button type="button" class="btn-outline-secondary btn-lg mr-1">
+    #<%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
+  <%= "(#{tag.reviews.count})" %>
+  </button>
 </form>
 </nav>
+<% end %>
 <h1>レビューブック一覧</h1>
 <% @books.each do |book| %>
   <%= link_to new_public_book_review_path(book) do %>
     <%= image_tag book.image_url %>
   <% end %>
 <%end%>
+

@@ -7,5 +7,5 @@
 <%= "#{@tag.tag_name}" %>
 <br>
 <% @reviews.each do |review| %>
-  <%= link_to review.content, review %>
+  <%= link_to review.book.image_url, new_public_book_review_path(review) %>
 <% end %>
