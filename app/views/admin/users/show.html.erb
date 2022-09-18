@@ -1,8 +1,22 @@
 <!--１ユーザーのレビュー一覧(レビューを削除できる)-->
-<% @reviews.each do |review| %>
-  <%= review.book.title %>
-  <%= review.user.name %>
-  <%= review.title %>
-  <%= review.body %>
-  <%= link_to "Destroy", url: "/admin/users/#{review.id}", method: :delete, "data-confirm" => "本当に削除しますか？" %>
-<% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <h3><strong><%= @user.name %>さんのレビュー投稿一覧</strong></h3>
+    <br>
+    <div class="card-deck">
+      <% @reviews.each do |review| %>
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title">
+            <h5><%= review.title %></h5>
+          </div>
+          <div class="card-text">
+            <p><%= review.body %></p>
+            <%= link_to "削除する", public_book_review_path(review.book, review), method: :delete,"data-confirm" => "本当に削除しますか？",class:"btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

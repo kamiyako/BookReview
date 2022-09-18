@@ -9,7 +9,7 @@
     <li class="list-group-item"><%= @book.author %></li>
   </ul>
 </div>
-
+<!--ゲストは投稿できない-->
 <% unless current_user.name == "guest" %>
 <!--レビューコメントフォーム-->
 <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews" do |f| %>

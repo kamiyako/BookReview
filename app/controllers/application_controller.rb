@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_admin!, if: :admin_url
-  before_action :authenticate_user!, except: [:top,:about]
+  before_action :authenticate_user!, if: :public_url
 
   def admin_url
     request.fullpath.include?("/admin")
