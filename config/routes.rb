@@ -10,14 +10,16 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'
   }
+  # ゲスト用
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
 
   # 管理者用
   # URL /admin/sign_in
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
     sessions: "admin/sessions"
   }
-  # ゲストログイン用
-  post 'public/homes/guest_sign_in', to: 'public/homes#guest_sign_in'
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
   get 'books/search', to: "public/books#search"
@@ -39,7 +41,9 @@ Rails.application.routes.draw do
       get 'followers' => 'relationships#followers', as: 'followers'
   end
     resources :books do
-      resources :reviews
+      resources :reviews do
+        resource :favorites, only: [:create, :destroy]
+      end
     end
 end
 end

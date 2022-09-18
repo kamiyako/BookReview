@@ -1,4 +1,4 @@
-<!--ユーザー一覧-->
+<!--ユーザー一覧（名前とemailが確認できる）-->
 <% @users.each do |user| %>
   <%= link_to user.name,admin_user_path(user.id) %>
   <%= user.mail %>

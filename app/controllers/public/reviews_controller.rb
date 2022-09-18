@@ -1,5 +1,4 @@
 class Public::ReviewsController < ApplicationController
-
   # def create
   #   @review = current_user.reviews.new(review_params)
   #   if @review.save

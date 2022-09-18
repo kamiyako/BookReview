@@ -67,3 +67,5 @@ gem "net-imap"
 gem 'devise'
 # 楽天API
 gem 'rakuten_web_service'
+# 日本語化
+gem 'rails-i18n'

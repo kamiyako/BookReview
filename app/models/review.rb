@@ -6,7 +6,11 @@ class Review < ApplicationRecord
   # タグ検索
   has_many :book_tags, dependent: :destroy
   has_many :tags, through: :book_tags# through(Review.tagsとすればReviewに紐付けられたTagの取得が可能になるオプション)
-
+  has_many :favorites, dependent: :destroy
+  
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
 # createアクションで記述したsave_tagインスタンスメソッドの中身を定義する
   def save_tag(sent_tags)
     # @reviewに紐付いているタグが存在する場合全てのデータを取得する
