@@ -1,10 +1,5 @@
 <!--検索バー-->
 <%= form_tag(books_search_path, method: :get) do %>
-  <%= text_field_tag :title, title %>
-  <%= button_tag type: "submit" %>
+  <%= text_field_tag :title, title ,placeholder:"本を検索する"%>
+  <%= button_tag "検索" %>
 <% end %>
-
-<!--<form class="d-flex" role="search">-->
-<!--  <input type="search" class="form-control me-2" placeholder="検索..." aria-label="検索...">-->
-<!--  <button type="submit" class="btn btn-outline-light flex-shrink-0">検索</button>-->
-<!--</form>-->
