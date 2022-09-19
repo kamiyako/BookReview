@@ -1,11 +1,9 @@
-<h3>タグリスト</h3>
-<% @tag_list.each do |list| %>
-  <%= list.tag_name %>
-  <%= "(#{list.reviews.count})" %>
-<% end %>
+<%= render 'public/books/taglist', tag_list: @tag_list %>
 <br>
 <%= "#{@tag.tag_name}" %>
 <br>
 <% @reviews.each do |review| %>
-  <%= link_to review.book.image_url, new_public_book_review_path(review) %>
+  <%= link_to new_public_book_review_path(review.book) do %>
+  <%= image_tag review.book.image_url %>
+  <% end %>
 <% end %>
