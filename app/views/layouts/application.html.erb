@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>BookReview</title>
+    <script src="https://kit.fontawesome.com/e35a94ee4b.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -19,7 +20,6 @@
     <% if flash[:alert] %>
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
-
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>

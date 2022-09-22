@@ -1,31 +1,40 @@
 <!-- マイページ -->
-<h2>User info</h2>
-<table class="table">
-  <tbody>
-    <tr><th>name</th><th><%= @user.name %></th></tr>
-    <tr><td>フォロー数:
-    <%= link_to public_user_followings_path(@user) do %>
-      <%= @user.followings.count %>
-    <% end %>
-    </td><td></td></tr>
-    <tr><td>フォロワー数:
-    <%= link_to public_user_followers_path(@user) do %>
-      <%= @user.followers.count %>
-    <% end %>
-    </td><td></td></tr>
-  </tbody>
-</table>
-<%if current_user != @user %>
-    <% if current_user.following?(@user) %>
-      <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
-    <% else %>
-      <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
-    <% end %>
-<% end %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2 offset-md-5">
+      <h3 class="bg-info text-light border rounded-circle p-3" style="width: 100px;height: 100px;"><strong><%= @user.name %></strong></h3>
+        フォロー数:
+        <%= link_to public_user_followings_path(@user) do %>
+          <%= @user.followings.count %>
+        <% end %>
+        <br>
+        フォロワー数:
+        <%= link_to public_user_followers_path(@user) do %>
+          <%= @user.followers.count %>
+        <% end %>
+        <br>
+        <%if current_user != @user %>
+          <% if current_user.following?(@user) %>
+            <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
+          <% else %>
+            <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
+          <% end %>
+        <% end %>
+      </div>
+  </div>
 
-<h1>レビューブック一覧</h1>
-<% @reviews.each do |review| %>
-  <%= link_to new_public_book_review_path(review.book) do %>
-    <%= image_tag review.book.image_url %>
-  <% end %>
-<% end %>
+  <br>
+  <div class="row">
+    <% @reviews.each do |review| %>
+    <div class="col-lg-3">
+      <div class="card shadow">
+        <%= link_to new_public_book_review_path(review.book) do %>
+          <%= image_tag review.book.image_url,class:"card-img-top" %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<br>

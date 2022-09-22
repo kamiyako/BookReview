@@ -1,7 +1,6 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, authentication_keys: [:name]
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,authentication_keys: [:name]
 
   has_many :reviews, dependent: :destroy
   has_many :books

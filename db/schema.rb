@@ -25,19 +25,18 @@ ActiveRecord::Schema.define(version: 2022_09_18_030218) do
   end
 
   create_table "book_tags", force: :cascade do |t|
-    t.integer "review_id"
-    t.integer "tag_id"
+    t.integer "review_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "books", primary_key: "isbn", force: :cascade do |t|
-    t.string "title"
-    t.string "author"
-    t.string "url"
-    t.string "image_url"
-    t.string "item_caption"
-    t.integer "genre_id"
+    t.string "title", null: false
+    t.string "author", null: false
+    t.string "url", null: false
+    t.string "image_url", null: false
+    t.string "item_caption", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -45,12 +44,6 @@ ActiveRecord::Schema.define(version: 2022_09_18_030218) do
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
     t.integer "review_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "genres", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -64,8 +57,8 @@ ActiveRecord::Schema.define(version: 2022_09_18_030218) do
 
   create_table "reviews", force: :cascade do |t|
     t.float "star", default: 0.0, null: false
-    t.string "title"
-    t.string "body"
+    t.string "title", null: false
+    t.string "body", null: false
     t.integer "book_id", null: false
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -75,7 +68,7 @@ ActiveRecord::Schema.define(version: 2022_09_18_030218) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string "tag_name"
+    t.string "tag_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -86,7 +79,7 @@ ActiveRecord::Schema.define(version: 2022_09_18_030218) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true

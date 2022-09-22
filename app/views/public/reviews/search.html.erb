@@ -1,9 +1,19 @@
+<br>
 <%= render 'public/books/taglist', tag_list: @tag_list %>
 <br>
-<%= "#{@tag.tag_name}" %>
+<h3 class="text-center border-bottom"><%= "#{@tag.tag_name}" %>におすすめの本<i class="fa-solid fa-book-open"></i></h3>
 <br>
-<% @reviews.each do |review| %>
-  <%= link_to new_public_book_review_path(review.book) do %>
-  <%= image_tag review.book.image_url %>
-  <% end %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <% @reviews.each do |review| %>
+    <div class="col-lg-3">
+      <div class="card shadow">
+          <%= link_to new_public_book_review_path(review.book) do %>
+            <%= image_tag review.book.image_url,class:"card-img-top" %>
+          <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<br>

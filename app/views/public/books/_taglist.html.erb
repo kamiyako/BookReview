@@ -1,5 +1,9 @@
-<h3>タグリスト</h3>
+<div class="container">
 <% tag_list.each do |list| %>
-  <%= link_to list.tag_name,tag_reviews_path(list.id) %>
-  <%= "(#{list.reviews.count})" %>
+  <%= link_to tag_reviews_path(list.id),class:"btn btn-secondary rounded-pill" do %>
+    <%= list.tag_name %>
+    <%= "(#{list.reviews.count})" %>
+  <% end %>
 <% end %>
+</div>
+<br>

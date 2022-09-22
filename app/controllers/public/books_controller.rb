@@ -1,5 +1,5 @@
 class Public::BooksController < ApplicationController
-  
+
   def index
     # レビューのある本のみ表示させる
     @books = Book.select do |book|

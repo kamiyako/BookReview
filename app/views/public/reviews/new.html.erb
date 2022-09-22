@@ -50,27 +50,35 @@
       <% end %>
     </div>
     <div class="col-md-8">
-      <div class="card">
         <div class="card-header">
           <h1 class="text-center" >レビュー投稿一覧</h1>
         </div>
-        <div class="card-body">
-          <p class="card-text">
-            <table>
-              <thead>
-                <tr>
-                  <th>名前</th>
-                  <th>タイトル</th>
-                  <th>内容</th>
-                  <th>評価</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @book.reviews.each do |review| %>
-                  <tr>
-                    <td><%= link_to review.user.name,public_user_path(review.user_id) %></td>
-                    <td><%= review.title %></td>
-                    <td><%= review.body %></td>
+        <!--カード-->
+        <% @book.reviews.each do |review| %>
+        <div class="card mb-3" style="max-width: 800px;">
+          <div class="row g-0">
+              <h3 class="bg-info text-light border rounded-circle p-3" style="width: 50px;height: 50px;"><i class="fa-solid fa-pen-nib"></i></h3>
+            <div class="col-md-10">
+              <div class="card-body">
+                  <!--いいね機能-->
+                  <p class="text-right">
+                  <%= link_to review.user.name,public_user_path(review.user_id) %>
+                  <% if review.favorited_by?(current_user) %>
+                    <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :delete do %>
+                      ♥<%= review.favorites.count %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :post do %>
+                      ♡<%= review.favorites.count %>
+                    <% end %>
+                    </p>
+                  <% end %>
+                <h5 class="card-title"><strong><%= review.title %></strong></h5>
+                <p class="card-text"><%= review.body %></p>
+                <!--テーブル-->
+                <table class="table table-borderless">
+                  <tbody>
+                    <tr>
                     <td><%= review.star %>点</td>
                     <td class="review-star" data-score="<%= review.star %>"></td>
                     <td>
@@ -80,38 +88,24 @@
                       <%= "(#{tag.reviews.count})" %>
                     <% end %>
                     </td>
-                    <td>
-                      <!--いいね機能-->
-                      <% if review.favorited_by?(current_user) %>
-                        <p>
-                          <%= link_to public_book_review_favorites_path(review_id: review.id), method: :delete do %>
-                            ♥<%= review.favorites.count %> いいね
-                          <% end %>
-                        </p>
-                        <% else %>
-                        <p>
-                          <%= link_to public_book_review_favorites_path(review_id: review.id), method: :post do %>
-                            ♡<%= review.favorites.count %> いいね
-                          <% end %>
-                        </p>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            <script>
-              $('.review-star').raty({
-                readOnly: true,
-                score: function() {
-                  return $(this).attr('data-score');
-                },
-                path: '/assets/'
-              });
-            </script>
-          </p>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+        <% end %>
+        <script>
+        $('.review-star').raty({
+          readOnly: true,
+          score: function() {
+            return $(this).attr('data-score');
+          },
+          path: '/assets/'
+        });
+      </script>
+        <!--カード-->
     </div>
   </div>
 </div>
