@@ -3,7 +3,10 @@
   <div class="row">
     <div class="col-6 col-md-4">
       <div class="card" style="width: 18rem;">
-        <%= image_tag @book.image_url,class: "card-img-top" %>
+        <!--画像リサイズ反映されず・・・-->
+        <div class="card-img-top">
+          <%=link_to image_tag(@book.image_url),@book.url %>
+        </div>
         <div class="card-body">
           <h5 class="card-title"><%= @book.title %></h5>
           <p class="card-text"><%= @book.item_caption %></p>
