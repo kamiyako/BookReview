@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   def public_url
-    request.path.include?("/public")
+    request.path.include?("/public") && !admin_signed_in?
   end
 
 

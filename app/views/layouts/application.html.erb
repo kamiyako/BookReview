@@ -15,12 +15,17 @@
     <%= render 'layouts/header' %>
     <!--アラート-->
     <% if flash[:notice ] %>
-      <div class="alert alert-primary"><%= notice %></div>
+      <div class="alert alert-primary">
+        <%= notice %><button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= alert %><button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
     <% end %>
-    <% if flash[:alert] %>
-      <div class="alert alert-danger"><%= alert %></div>
-    <% end %>
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
     <%= render 'layouts/footer' %>
   </body>
 </html>

@@ -9,10 +9,5 @@ class Admin::UsersController < ApplicationController
     @reviews = @user.reviews
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @reviews = @user.reviews
-    @reviews.destroy
-    redirect_to request.referer
-  end
+
 end

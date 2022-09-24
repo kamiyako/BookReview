@@ -1,2 +1,25 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.overlay-gray{
+  height: 100vh;
+  /* オーバーレイの色と画像の指定 */
+  background: linear-gradient(rgba(0, 0, 0, .6),  rgba(0, 0, 0, .6)), url("../images/bookstop.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.alert {
+  margin-bottom: 0;
+}
+
+// フッターをページの最下部に固定する
+body {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+main {
+  flex: 1;
+}

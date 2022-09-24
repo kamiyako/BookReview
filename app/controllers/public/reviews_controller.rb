@@ -72,7 +72,6 @@ class Public::ReviewsController < ApplicationController
 
 
   def destroy
-    @book = Book.find(params[:book_id])
     @review = Review.find(params[:id])
     @review.destroy
     redirect_to request.referer
