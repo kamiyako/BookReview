@@ -70,3 +70,5 @@ gem 'devise'
 gem 'rakuten_web_service'
 # 日本語化
 gem 'rails-i18n'
+# ページネーション
+gem 'kaminari'

@@ -3,7 +3,6 @@ class Public::ReviewsController < ApplicationController
  def create
    # 同じユーザーが連投したときは更新するようにする
   review = current_user.reviews.find_by(book_id: params[:review][:book_id])
-
   if review
      params[:id] = review.id
      params[:book_id] = review.book_id
