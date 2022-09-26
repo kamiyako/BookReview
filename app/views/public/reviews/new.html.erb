@@ -16,9 +16,11 @@
         <div class="card-header text-center"><strong>Review Comment</strong></div>
         <div class="card-body">
           <!--レビューコメントフォーム-->
-          <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews", method: :post do |f| %>
+          <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews", method: :post, local:false do |f| %>
           <!--エラーメッセージ-->
-          <%= render 'layouts/error_messages', model: @review %>
+          <div id="error_message">
+            <%= render 'layouts/error_messages', model: @review %>
+          </div>
             <div class="form-group">
               <%= f.label :title,"タイトル" %>
               <%= f.text_field :title, class: "form-control" %>
@@ -61,42 +63,9 @@
        <p class="text-right">著：<%= @book.author %></p>
       </div>
       <!--カード-->
-      <% @book.reviews.each do |review| %>
-      <div class="card card-body mb-3">
-        <div class="row justify-content-between">
-          <div class="col-10"><h4><%= review.title %></h4></div>
-          <div class="col-2">
-            <%= link_to review.user.name,public_user_path(review.user_id) %>
-           <!--いいね機能-->
-            <% if review.favorited_by?(current_user) %>
-              <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :delete do %>
-                <i class="fa fa-heart like_icon"></i><%= review.favorites.count %>
-              <% end %>
-            <% else %>
-              <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :post do %>
-                <i class="fa fa-heart unlike_icon"></i><%= review.favorites.count %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-      <p class="card-text"><%= review.body %></p>
-      <div class="row justify-content-start">
-        <div class="col-4">
-          <p class="review-star" data-score="<%= review.star %>"><%= review.star %>点</p>
-        </div>
-        <div class="col-4">
-          <!--タグ-->
-          <% review.tags.each do |tag| %>
-            <i class="fa-solid fa-tag"></i><%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
-            <%= "(#{tag.reviews.count})" %>
-          <% end %>
-        </div>
-        <% if review.user == current_user %>
-          <%= link_to "削除する", public_book_review_path(review.book, review), method: :delete,"data-confirm" => "本当に削除しますか？",class:"btn btn-danger" %>
-        <% end %>
+      <div id="reviews_list">
+        <%= render 'public/reviews/index', book: @book %>
       </div>
-    </div>
-      <% end %>
         <script>
         $('.review-star').raty({
           starOn: "<%= asset_path('star-on.png') %>",

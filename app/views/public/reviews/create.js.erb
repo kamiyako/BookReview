@@ -1,0 +1,2 @@
+$("#error_message").html("<%= j(render 'layouts/error_messages', model: @review)%>")
+$("#reviews_list").html("<%= j(render 'public/reviews/index', book: @book )%>")

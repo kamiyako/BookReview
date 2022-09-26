@@ -12,15 +12,14 @@ class Public::ReviewsController < ApplicationController
     # formから、@reviewオブジェクトを参照してタグの名前も一緒に送信する。
     # splitで、["タグ" "検索" "機能"]でスペースで区切り配列化する。
     tag_list = params[:review][:tag_name].split(nil)
+    @book = Book.find(params[:book_id])
 
     if @review.save
       # tag_listで取得したデータを保存する
       @review.save_tag(tag_list)
-      flash[:notice] = "投稿に成功しました"
+#      flash[:notice] = "投稿に成功しました"
       #コメント送信後は、一つ前のページへリダイレクトさせる。
-      redirect_back(fallback_location: root_path)
-    else
-      redirect_back(fallback_location: root_path)
+#      redirect_back(fallback_location: root_path)
     end
   end
  end
@@ -70,8 +69,7 @@ class Public::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     if @review.destroy
-      flash[:notice]="投稿を削除しました"
-      redirect_to request.referer
+      # flash[:notice]="投稿を削除しました"
     end
   end
 
