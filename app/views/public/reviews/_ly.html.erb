@@ -16,3 +16,27 @@
     </div>
   </div>
 </div>
+
+
+<!--ユーザー一覧（名前とemailが確認できる）-->
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <h3><strong>ユーザー一覧</strong></h3>
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">ユーザー名</th>
+          <th scope="col">Eメール</th>
+        </tr>
+      </thead>
+      <% @users.each do |user| %>
+      <tbody>
+        <tr>
+          <td><%= link_to user.name,admin_user_path(user.id) %></td>
+          <td><%= user.email %></td>
+        </tr>
+      </tbody>
+      <% end %>
+    </table>
+  </div>
+</div>

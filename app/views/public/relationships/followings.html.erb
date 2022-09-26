@@ -1,23 +1,27 @@
-<br>
 <div class="container">
-  <h2>フォロー一覧</h2>
-  <% if @users.exists? %>
-    <% @users.each do |user| %>
-  <div class="card shadow text-center" style="width: 18rem;">
-    <h3 class="bg-info text-light border rounded-circle p-3" style="width: 100px;height: 100px;"><strong><%= user.name %></strong></h3>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">フォロー数: <%= user.followings.count %></li>
-      <li class="list-group-item">フォロワー数: <%= user.followers.count %></li>
-      <li class="list-group-item">
-        <%= link_to public_user_path(user.id), class:"btn btn-outline-secondary btn-block" do %>
-          <i class="fa-regular fa-eye"></i>
-        <% end %>
-      </li>
-    </ul>
+  <div class="h4 pt-4 pb-2 mb-3 text-dark border-bottom border-dark">
+    <h2>Follow Users</h2>
+  </div>
+  <div class="row">
+    <% if @users.exists? %>
+      <% @users.each do |user| %>
+      <div class="col-lg-4">
+        <div class="card shadow text-center" style="width: 18rem;">
+          <h3 class="bg-info text-light border rounded-circle p-3 m-auto" style="width: 100px;height: 100px;"><strong><%= user.name %></strong></h3>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">フォロー数: <%= user.followings.count %></li>
+            <li class="list-group-item">フォロワー数: <%= user.followers.count %></li>
+            <li class="list-group-item">
+              <%= link_to public_user_path(user.id), class:"btn btn-outline-secondary btn-block" do %>
+                <i class="fa-regular fa-eye"></i>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
       <% end %>
     <% else %>
       <p>ユーザーはいません</p>
     <% end %>
   </div>
 </div>
-<br>

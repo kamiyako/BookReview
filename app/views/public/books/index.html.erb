@@ -1,11 +1,19 @@
-<br>
-<%= render 'public/books/taglist', tag_list: @tag_list %>
-<!--ブックレビュー一覧-->
-<br>
 <div class="container">
   <div class="row">
+    <div class="col-lg-8 pt-3 pb-3 mx-auto text-center">
+      <h3><strong>Book Reviews</strong></h3>
+      <p>お気に入りの本を見つけてレビューしよう！</p>
+      <%= render 'public/books/form', title: @title %>
+    </div>
+  </div>
+
+<div class="h4 pb-2 mb-4 text-dark border-bottom border-dark">
+  <%= render 'public/books/taglist', tag_list: @tag_list %>
+</div>
+<!--ブックレビュー一覧-->
+  <div class="row">
     <% @books.each do |book| %>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <div class="card shadow">
         <%= link_to new_public_book_review_path(book) do %>
           <%= image_tag book.image_url,class:"card-img-top" %>
@@ -16,4 +24,3 @@
   </div>
 </div>
 <br>
-

@@ -1,6 +1,6 @@
 <div class="container">
 <% tag_list.each do |list| %>
-  <%= link_to tag_reviews_path(list.id),class:"btn btn-secondary rounded-pill" do %>
+  <%= link_to tag_reviews_path(list.id),class:"btn btn-outline-secondary" do %>
     <%= list.tag_name %>
     <%= "(#{list.reviews.count})" %>
   <% end %>

@@ -1,22 +1,26 @@
 <!--ユーザー一覧（名前とemailが確認できる）-->
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    <h3><strong>ユーザー一覧</strong></h3>
-    <table class="table table-borderless">
-      <thead>
-        <tr>
-          <th scope="col">ユーザー名</th>
-          <th scope="col">Eメール</th>
-        </tr>
-      </thead>
-      <% @users.each do |user| %>
-      <tbody>
-        <tr>
-          <td><%= link_to user.name,admin_user_path(user.id) %></td>
-          <td><%= user.email %></td>
-        </tr>
-      </tbody>
-      <% end %>
-    </table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="h3 pb-2 mb-4 mt-4 text-dark border-bottom border-dark">
+       <p class="text-center"><strong>ユーザー一覧</strong></p>
+      </div>
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col">ユーザー名</th>
+            <th scope="col">Eメール</th>
+          </tr>
+        </thead>
+        <% @users.each do |user| %>
+        <tbody>
+          <tr>
+            <td><%= link_to user.name,admin_user_path(user.id) %></td>
+            <td><%= user.email %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
   </div>
 </div>

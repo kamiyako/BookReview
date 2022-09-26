@@ -14,16 +14,20 @@
           <%= @user.followers.count %>
         <% end %>
         <br>
-        <%if current_user != @user %>
-          <% if current_user.following?(@user) %>
-            <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
-          <% else %>
-            <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
+        <% unless current_user.name == "guest" %>
+          <%if current_user != @user %>
+            <% if current_user.following?(@user) %>
+              <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
+            <% else %>
+              <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
   </div>
-
+  <div class="h4 pb-2 mb-2 text-dark border-bottom border-dark">
+    <h3><strong><%= @user.name %> Books</strong></h3>
+  </div>
   <br>
   <div class="row">
     <% @reviews.each do |review| %>

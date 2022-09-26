@@ -8,6 +8,9 @@ class Review < ApplicationRecord
   has_many :tags, through: :book_tags# through(Review.tagsとすればReviewに紐付けられたTagの取得が可能になるオプション)
   has_many :favorites, dependent: :destroy
   
+  validates :title, presence: true
+  validates :body, presence: true
+
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end

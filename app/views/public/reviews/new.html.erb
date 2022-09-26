@@ -1,110 +1,109 @@
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-6 col-md-4">
-      <div class="card" style="width: 18rem;">
-        <!--画像リサイズ反映されず・・・-->
-        <%= link_to @book.url do%>
-          <%= image_tag @book.image_url,class:"card-img-top" %>
-        <% end %>
-        <div class="card-body">
-          <h5 class="card-title"><%= @book.title %></h5>
-          <p class="card-text"><%= @book.item_caption %></p>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><%= @book.author %></li>
-        </ul>
-      </div>
-      <br>
-      <!--ゲストは投稿できない-->
-      <% unless current_user.name == "guest" %>
-      <!--レビューコメントフォーム-->
-      <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews", method: :post do |f| %>
-        <div class="form-group">
-          <%= f.label :title,"タイトル" %>
-          <%= f.text_field :title, class: "form-control" %>
-        </div>
-        <div class="form-group">
-          <%= f.label :body,"本文" %>
-          <%= f.text_area :body, class: "form-control" %>
-          <%= f.hidden_field :book_id, :value => @book.id  %>
-        </div>
-        <!--タグ付け-->
-        <div class="form-group">
-          <%= f.label :tag_name,"どの世代におすすめですか？（スペースキーで複数タグを付けられます）" %>
-          <%= f.text_field :tag_name, placeholder: "10代 20代 30代", class: "form-control" %>
-        </div>
-        <!--星レビュー-->
-        <div id="star">
-          <label>評価</label>
-        </div>
-        <div class="actions">
-          <%= f.submit "レビューする",class: "btn btn-success" %>
-        </div>
-        <script>
-          $('#star').raty({
-            starOn: "<%= asset_path('star-on.png') %>",
-            starOff: "<%= asset_path('star-off.png') %>",
-            starHalf: "<%= asset_path('star-half.png') %>",
-            scoreName: 'review[star]' // Reviewモデルのstarカラムに値を保存する
-          });
-        </script>
-        <% end %>
+<% if @review.errors.any? %>
+  <div class="alert alert-warning">
+    <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
       <% end %>
-    </div>
-    <div class="col-md-8">
-        <div class="card-header">
-          <h1 class="text-center" >レビュー投稿一覧</h1>
-        </div>
-        <!--カード-->
-        <% @book.reviews.each do |review| %>
-        <div class="card mb-3" style="max-width: 800px;">
-          <div class="row g-0">
-              <h3 class="bg-info text-light border rounded-circle p-3" style="width: 50px;height: 50px;"><i class="fa-solid fa-pen-nib"></i></h3>
-            <div class="col-md-10">
-              <div class="card-body">
-                  <!--いいね機能-->
-                  <p class="text-right">
-                  <%= link_to review.user.name,public_user_path(review.user_id) %>
-                  <% if review.favorited_by?(current_user) %>
-                    <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :delete do %>
-                      ♥<%= review.favorites.count %>
-                    <% end %>
-                  <% else %>
-                    <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :post do %>
-                      ♡<%= review.favorites.count %>
-                    <% end %>
-                    </p>
-                  <% end %>
-                <h5 class="card-title"><strong><%= review.title %></strong></h5>
-                <p class="card-text"><%= review.body %></p>
-                <!--テーブル-->
-                <table class="table table-borderless">
-                  <tbody>
-                    <tr>
-                    <td><%= review.star %>点</td>
-                    <td class="review-star" data-score="<%= review.star %>"></td>
-                    <td>
-                      <!--タグ-->
-                    <% review.tags.each do |tag| %>
-                      #<%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
-                      <%= "(#{tag.reviews.count})" %>
-                    <% end %>
-                    </td>
-                    <td>
-                    <% if review.user == current_user %>
-                      <%= link_to "削除する", public_book_review_path(review.book, review), method: :delete,"data-confirm" => "本当に削除しますか？",class:"btn btn-danger" %>
-                    <% end %>
-                    </td>
-
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+    </ul>
+  </div>
+<% end %>
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-4">
+      <!--ホバー画像-->
+      <%= link_to @book.url do %>
+      <div class="rakten-img">
+        <%= image_tag @book.image_url,class:"img-fluid" %>
+      	<div class="mask">
+      		<div class="caption">楽天Booksへ!</div>
+      	</div>
+      </div>
+      <% end %>
+      <div class="card text-bg-secondary mt-3 mb-3">
+        <div class="card-header text-center"><strong>Review Comment</strong></div>
+        <div class="card-body">
+          <!--ゲストは表示させない-->
+          <% unless current_user.name == "guest" %>
+          <!--レビューコメントフォーム-->
+          <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews", method: :post do |f| %>
+            <div class="form-group">
+              <%= f.label :title,"タイトル" %>
+              <%= f.text_field :title, class: "form-control" %>
             </div>
+            <div class="form-group">
+              <%= f.label :body,"本文" %>
+              <%= f.text_area :body, class: "form-control" %>
+              <%= f.hidden_field :book_id, :value => @book.id  %>
+            </div>
+            <!--タグ付け-->
+            <div class="form-group">
+              <%= f.label :tag_name,"どの世代におすすめですか？（スペースキーで複数タグを付けられます）" %>
+              <%= f.text_field :tag_name, placeholder: "10代 20代 30代", class: "form-control" %>
+            </div>
+            <!--星レビュー-->
+            <div id="star">
+              <label>評価</label>
+            </div>
+            <div class="actions">
+              <%= f.submit "レビューする",class: "btn btn-success" %>
+            </div>
+            <script>
+              $('#star').raty({
+                starOn: "<%= asset_path('star-on.png') %>",
+                starOff: "<%= asset_path('star-off.png') %>",
+                starHalf: "<%= asset_path('star-half.png') %>",
+                scoreName: 'review[star]' // Reviewモデルのstarカラムに値を保存する
+              });
+            </script>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!--一覧画面-->
+    <div class="col-8">
+      <h1><%= @book.title %></h1>
+      <p><%= @book.item_caption %></p>
+      <div class="h5 pb-2 mb-4 text-dark border-bottom border-dark">
+       <p class="text-right">著：<%= @book.author %></p>
+      </div>
+      <!--カード-->
+      <% @book.reviews.each do |review| %>
+      <div class="card card-body mb-3">
+        <div class="row justify-content-between">
+          <div class="col-10"><h4><%= review.title %></h4></div>
+          <div class="col-2">
+            <%= link_to review.user.name,public_user_path(review.user_id) %>
+           <!--いいね機能-->
+            <% if review.favorited_by?(current_user) %>
+              <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :delete do %>
+                <i class="fa fa-heart like_icon"></i><%= review.favorites.count %>
+              <% end %>
+            <% else %>
+              <%= link_to public_book_review_favorites_path(book_id: @book.id,review_id: review.id), method: :post do %>
+                <i class="fa fa-heart unlike_icon"></i><%= review.favorites.count %>
+              <% end %>
+            <% end %>
           </div>
         </div>
+      <p class="card-text"><%= review.body %></p>
+      <div class="row justify-content-start">
+        <div class="col-4">
+          <p class="review-star" data-score="<%= review.star %>"><%= review.star %>点</p>
+        </div>
+        <div class="col-4">
+          <!--タグ-->
+          <% review.tags.each do |tag| %>
+            <i class="fa-solid fa-tag"></i><%= link_to tag.tag_name, tag_reviews_path(tag_id: tag.id) %>
+            <%= "(#{tag.reviews.count})" %>
+          <% end %>
+        </div>
+        <% if review.user == current_user %>
+          <%= link_to "削除する", public_book_review_path(review.book, review), method: :delete,"data-confirm" => "本当に削除しますか？",class:"btn btn-danger" %>
         <% end %>
+      </div>
+    </div>
+      <% end %>
         <script>
         $('.review-star').raty({
           readOnly: true,
@@ -114,9 +113,5 @@
           path: '/assets/'
         });
       </script>
-        <!--カード-->
-    </div>
   </div>
 </div>
-<br>
-<br>

@@ -3,6 +3,7 @@ class Public::ReviewsController < ApplicationController
  def create
    # 同じユーザーが連投したときは更新するようにする
   review = current_user.reviews.find_by(book_id: params[:review][:book_id])
+
   if review
      params[:id] = review.id
      params[:book_id] = review.book_id
@@ -12,9 +13,11 @@ class Public::ReviewsController < ApplicationController
     # formから、@reviewオブジェクトを参照してタグの名前も一緒に送信する。
     # splitで、["タグ" "検索" "機能"]でスペースで区切り配列化する。
     tag_list = params[:review][:tag_name].split(nil)
+
     if @review.save
       # tag_listで取得したデータを保存する
       @review.save_tag(tag_list)
+      flash[:notice] = "投稿に成功しました"
       #コメント送信後は、一つ前のページへリダイレクトさせる。
       redirect_back(fallback_location: root_path)
     else
@@ -73,8 +76,10 @@ class Public::ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find(params[:id])
-    @review.destroy
-    redirect_to request.referer
+    if @review.destroy
+      flash[:notice]="投稿を削除しました"
+      redirect_to request.referer
+    end
   end
 
   def search
@@ -88,5 +93,6 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:title, :body, :star, :book_id, :user_id )
   end
+
 
 end
