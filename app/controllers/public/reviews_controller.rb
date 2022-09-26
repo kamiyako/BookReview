@@ -4,9 +4,9 @@ class Public::ReviewsController < ApplicationController
    # 同じユーザーが連投したときは更新するようにする
   review = current_user.reviews.find_by(book_id: params[:review][:book_id])
   if review
-     params[:id] = review.id
-     params[:book_id] = review.book_id
-     update
+    params[:id] = review.id
+    params[:book_id] = review.book_id
+    update
   else
     @review = current_user.reviews.new(review_params)
     # formから、@reviewオブジェクトを参照してタグの名前も一緒に送信する。
@@ -36,14 +36,8 @@ class Public::ReviewsController < ApplicationController
     else
       @review = current_user.reviews.new
     end
-
     # クリックした投稿に紐付けられているタグの取得。
     @review_tags = @review.tags
-  end
-
-  def index
-    @reviews = Review.all
-    @tag_list = Tag.all
   end
 
   def edit
@@ -68,7 +62,7 @@ class Public::ReviewsController < ApplicationController
       review.save_tag(tag_list)
       redirect_to new_public_book_review_path(@book.id), notice:'投稿完了しました:)'
     else
-      redirect_to :action => "edit"
+      redirect_back(fallback_location: root_path)
     end
   end
 
