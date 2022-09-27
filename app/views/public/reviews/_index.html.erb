@@ -5,15 +5,9 @@
     <div class="col-2">
       <%= link_to review.user.name,public_user_path(review.user_id) %>
      <!--いいね機能-->
-      <% if review.favorited_by?(current_user) %>
-        <%= link_to public_book_review_favorites_path(book_id: book.id,review_id: review.id), method: :delete,remote: true do %>
-          <i class="fa fa-heart like_icon"></i><%= review.favorites.count %>
-        <% end %>
-      <% else %>
-        <%= link_to public_book_review_favorites_path(book_id: book.id,review_id: review.id), method: :post,remote: true do %>
-          <i class="fa fa-heart unlike_icon"></i><%= review.favorites.count %>
-        <% end %>
-      <% end %>
+      <span id="likes_<%= review.id %>">
+        <%= render partial: 'public/favorites/like',locals: {book: book,review: review} %>
+      </span>
     </div>
   </div>
 <p class="card-text"><%= review.body %></p>

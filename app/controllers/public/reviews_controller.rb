@@ -69,7 +69,8 @@ class Public::ReviewsController < ApplicationController
   def destroy
     @review = Review.find(params[:id])
     if @review.destroy
-      # flash[:notice]="投稿を削除しました"
+      flash[:notice]="投稿を削除しました"
+      redirect_to request.referer
     end
   end
 

@@ -10,11 +10,12 @@
       	</div>
       </div>
       <% end %>
-      <!--ゲストは表示させない-->
-      <% unless current_user.name == "guest" %>
+
       <div class="card text-bg-secondary mt-3 mb-3">
         <div class="card-header text-center"><strong>Review Comment</strong></div>
         <div class="card-body">
+          <!--ゲストは表示させない-->
+          <% unless current_user.name == "guest" %>
           <!--レビューコメントフォーム-->
           <%= form_with model: @review, url: "/public/books/#{@book.id}/reviews", method: :post, local:false do |f| %>
           <!--エラーメッセージ-->
