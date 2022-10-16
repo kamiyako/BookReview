@@ -16,11 +16,9 @@
         <br>
         <% unless current_user.name == "guest" %>
           <%if current_user != @user %>
-            <% if current_user.following?(@user) %>
-              <%= link_to 'フォロー外す', public_user_relationships_path(@user.id), class: "btn btn-danger", method: :delete  %>
-            <% else %>
-              <%= link_to 'フォローする', public_user_relationships_path(@user.id), class: "btn btn-success", method: :POST %>
-            <% end %>
+            <div id = "relationship_<%= @user.id %>">
+              <%= render partial: "public/relationships/follow", locals: { user: @user } %>
+            </div>
           <% end %>
         <% end %>
       </div>
