@@ -1,0 +1,19 @@
+<br>
+<div class="container">
+  <div class="h4 pb-2 mb-2 text-dark border-bottom border-dark">
+    <h3><strong>いいねしたブック一覧</strong></h3>
+  </div>
+  <br>
+  <div class="row">
+    <% @likes.each do |like| %>
+    <div class="col-lg-3">
+      <div class="card shadow">
+      <%= link_to new_public_book_review_path(like.review.book) do %>
+        <%= image_tag like.review.book.image_url,class:"card-img-top" %>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+<br>

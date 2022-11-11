@@ -23,6 +23,9 @@
          <li class="nav-item">
            <%= link_to 'マイページ', public_user_path(current_user.id), class: 'nav-link text-white' %>
          </li>
+          <li class="nav-item">
+           <%= link_to 'ブックマーク一覧', public_users_path(current_user.id), class: 'nav-link text-white' %>
+         </li>
          <li class="nav-item">
           <!--検索フォーム-->
           <%= render 'public/books/form', title: @title %>

@@ -16,6 +16,7 @@ class Public::FavoritesController < ApplicationController
     # redirect_to new_public_book_review_path(params[:book_id])
   end
 
+
   private
 
   def favorited_params
