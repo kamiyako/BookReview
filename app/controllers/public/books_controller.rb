@@ -6,6 +6,8 @@ class Public::BooksController < ApplicationController
       book.reviews.count > 0
     end
     @tag_list = Tag.all
+    # 投稿のコメント数ランキング
+    @book_review_ranks = Book.find(Review.group(:book_id).order('count(book_id) desc').pluck(:book_id))
   end
 
   # /books/search
