@@ -9,5 +9,11 @@ class Admin::UsersController < ApplicationController
     @reviews = @user.reviews
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:notice] = 'ユーザーを削除しました。'
+    redirect_to request.referer
+  end
 
 end
