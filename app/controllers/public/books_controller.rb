@@ -26,6 +26,8 @@ class Public::BooksController < ApplicationController
         book = Book.new(read(result))
         @books << book
       end
+    else
+      render :index
     end
     #@books内の各データをそれぞれ保存
     #unlessで保存済の本は除外する
