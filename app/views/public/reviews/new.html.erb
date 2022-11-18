@@ -33,9 +33,11 @@
             </div>
             <!--タグ付け-->
             <div class="form-group">
-              <%= f.label :tag_name,"どの世代におすすめですか？（半角スペースキーで複数タグを付けられます）" %>
-              <!--テスト-->
-              <%= f.password_field :tag_name, placeholder: "10代 20代 30代", class: "form-control" %>
+              <%= f.label :tag_name,"どの世代におすすめですか？" %>
+              <!--半角スペースで複数タグ-->
+              <!--<%= f.text_field :tag_name, placeholder: "10代 20代 30代", class: "form-control" %>-->
+              <!--セレクトボックスでタグ-->
+              <%= f.select :tag_name, [['10代',10], ['20代',20], ['30代',30],['40代',40], ['50代',50], ['60代',60]] %>
             </div>
             <!--星レビュー-->
             <div id="star">
