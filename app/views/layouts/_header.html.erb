@@ -13,6 +13,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
+            <!--ゲストログインあとで修正する-->
         <% if user_signed_in? %>
          <li class="nav-item">
            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'nav-link text-white' %>
