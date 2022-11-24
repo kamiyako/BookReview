@@ -16,11 +16,20 @@ class Public::BooksController < ApplicationController
     #ここで空の配列を作ります
     @books = []
     @title = params[:title]#タイトル検索
+
     if @title.present?
       #resultsに楽天APIから取得したデータ(@title)を格納
       results = RakutenWebService::Books::Book.search({
         title: @title,
       })
+      
+      begin @books.count == 0
+      rescue StandardError => e
+        redirect_to public_books_path, alert: e.message
+      end
+      
+      
+      
       #@booksにAPIからの取得したデータを格納
       #privateメソッドから取得
       results.each do |result|
