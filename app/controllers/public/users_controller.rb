@@ -8,11 +8,20 @@ class Public::UsersController < ApplicationController
   def index
     @likes = current_user.favorites
   end
-
-  # def destroy
-  #   @review = Review.find(params[:id])
-  #   @review.destroy
-  # end
+  
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+    flash[:notice] = "User info was successfully updated."
+    redirect_to user_path(@user.id)
+    else
+    render :edit
+    end
+  end
 
   def destroy
     @user = User.find(params[:id])
@@ -25,6 +34,10 @@ class Public::UsersController < ApplicationController
 
   def set_user
     @user = User.find_by(:id => params[:id])
+  end
+  
+  def user_params
+    params.require(:user).permit(:name, :email)
   end
 
 end
