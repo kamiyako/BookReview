@@ -9,8 +9,7 @@
 <% end %>
 <!--プロフィール編集-->
 <h2>プロフィール編集</h2>
-
-  <%= form_with model: @user do |f| %>
+  <%= form_with model: @user, url: "/public/users/#{@user.id}", method: :patch do |f| %>
     <div class="form-group">
       <label for="name">Name</label><br>
       <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%><br>

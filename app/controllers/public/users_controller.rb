@@ -8,16 +8,16 @@ class Public::UsersController < ApplicationController
   def index
     @likes = current_user.favorites
   end
-  
+
   def edit
     @user = User.find(params[:id])
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
     flash[:notice] = "User info was successfully updated."
-    redirect_to user_path(@user.id)
+    redirect_to public_user_path(@user.id)
     else
     render :edit
     end
@@ -35,7 +35,7 @@ class Public::UsersController < ApplicationController
   def set_user
     @user = User.find_by(:id => params[:id])
   end
-  
+
   def user_params
     params.require(:user).permit(:name, :email)
   end
