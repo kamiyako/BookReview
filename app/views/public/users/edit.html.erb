@@ -14,13 +14,13 @@
       <h3>プロフ編集</h3>
         <%= form_with model: @user, url: "/public/users/#{@user.id}", method: :patch do |f| %>
           <div class="form-group">
-            <label for="name">Name</label><br>
-            <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前"%><br>
+            <label for="name">名前</label><br>
+            <%= f.text_field :name, autofocus: true, id:"inputName", placeholder:"名前",class:"form-control"%><br>
           </div>
 
           <div class="form-group">
-            <label for="email">Introduction</label><br>
-            <%= f.text_area :email, id:"email", placeholder:"emaiil"%><br>
+            <label for="email">Eメール</label><br>
+            <%= f.text_area :email, id:"email", placeholder:"emaiil",class:"form-control"%><br>
           </div>
 
           <div class="form-group">
