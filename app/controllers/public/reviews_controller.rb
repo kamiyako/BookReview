@@ -37,6 +37,16 @@ class Public::ReviewsController < ApplicationController
     end
     # クリックした投稿に紐付けられているタグの取得。
     @review_tags = @review.tags
+    # ソート
+    if params[:latest]
+      @reviews = review.latest
+    elsif params[:old]
+      @reviews = review.old
+    elsif params[:star_count]
+      @reviews = review.star_count
+    else
+      @reviews = @book.reviews.all
+    end
   end
 
   def edit
