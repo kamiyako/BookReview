@@ -39,11 +39,11 @@ class Public::ReviewsController < ApplicationController
     @review_tags = @review.tags
     # ソート
     if params[:latest]
-      @reviews = review.latest
+      @reviews = @book.reviews.latest
     elsif params[:old]
-      @reviews = review.old
+      @reviews = @book.reviews.old
     elsif params[:star_count]
-      @reviews = review.star_count
+      @reviews = @book.reviews.star_count
     else
       @reviews = @book.reviews.all
     end
